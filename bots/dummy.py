@@ -1,7 +1,8 @@
 import socket
 import sys
 
-botname = 'nutz'
+botname = sys.argv[1] # '<Your Username>'
+
 mazeSize = 35 # TODO: x/y
 # IPv4
 server_address = ('172.16.32.77', 4000)
