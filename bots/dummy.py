@@ -17,6 +17,8 @@ positionX = 0
 positionY = 0
 goalX = 0
 goalY = 0
+countWins = 0
+countLoses = 0
 
 wallTop = 0
 wallRight = 0
@@ -32,8 +34,23 @@ def send(msg):
     sock.sendall(msg.encode())
 
 def response(data):
+    global positionX, positionY, goalX, goalY, countWins, countLoses
+    
     dataSegments = data.split("|")
     print(sys.stderr, 'received "%s"' % dataSegments)
+
+    if dataSegments[0] == 'pos':
+        if int(dataSegments[1]) < mazeSize:
+            positionX = int(dataSegments[1])
+        if int(dataSegments[2]) < mazeSize:
+            positionY = int(dataSegments[2])
+    elif dataSegments[0] == 'game':
+        mazeSize = int(dataSegments[1]) # x
+        goalX = int(dataSegments[3])
+        goalY = int(dataSegments[4])
+    elif dataSegments[0] == 'win' or dataSegments[0] == 'lose':
+        countWins = int(dataSegments[1])
+        countLoses = int(dataSegments[2])
 
 while 1!= 0:
 
