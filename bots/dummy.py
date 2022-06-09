@@ -30,14 +30,14 @@ initMessage =                                                                   
 def send(msg):
     global sock
     
-    print (sys.stderr, 'sending %s' % msg)
+    print ('sending %s' % msg)
     sock.sendall(msg.encode())
 
 def response(data):
     global positionX, positionY, goalX, goalY, countWins, countLoses, wallTop, wallRight, wallBottom, wallLeft
     
     dataSegments = data.split("|")
-    print(sys.stderr, 'received "%s"' % dataSegments)
+    print('received "%s"' % dataSegments)
 
     if dataSegments[0] == 'pos':
         if int(dataSegments[1]) < mazeSize:
@@ -59,14 +59,14 @@ def response(data):
 while 1 != 0:
 
     sock = socket.socket(socketAddressFamily, socket.SOCK_STREAM)
-    print (sys.stderr,  'connecting to %s port %s' % server_address)
+    print ('connecting to %s port %s' % server_address)
     sock.connect(server_address)
     try:
         data = sock.recv(800)
-        print(sys.stderr, 'received "%s"' % data)
+        print('received "%s"' % data)
 
         # Login
-        print (sys.stderr, 'sending')
+        print ('sending')
         sock.sendall(initMessage.encode())
 
         while gameEnded != 1:
@@ -74,7 +74,7 @@ while 1 != 0:
             if data == '' or len(data) <= 3:
                 break
 
-            print(sys.stderr, 'received "%s"' % data)
+            print('received "%s"' % data)
             for msg in data.decode().strip().split('\n'):
                 response(msg)
 
