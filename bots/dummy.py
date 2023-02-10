@@ -30,7 +30,7 @@ initMessage =                                                                   
 def send(msg):
     global sock
     
-    print ('sending %s' % msg)
+    print ('sending %s\n' % msg)
     sock.sendall(msg.encode())
 
 def response(data):
@@ -78,6 +78,10 @@ while 1 != 0:
             for msg in data.decode().strip().split('\n'):
                 response(msg)
 
+                # logic here
+
+            # or here
+            # send('move up')
     finally:
         print (sys.stderr, 'closing socket')
         sock.close()
